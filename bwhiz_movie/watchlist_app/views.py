@@ -1,23 +1,23 @@
-from django.shortcuts import render
-from watchlist_app.models import Movie
-from django.http import JsonResponse
-# Create your views here.
+# from django.shortcuts import render
+# from watchlist_app.models import Movie
+# from django.http import JsonResponse
+# # Create your views here.
 
-def movie_list(request):
-    movies = Movie.objects.all()
+# def movie_list(request):
+#     movies = Movie.objects.all()
     
-    data = {
-        'Movies':list(movies.values())
-    }
+#     data = {
+#         'Movies':list(movies.values())
+#     }
     
-    return JsonResponse(data)
+#     return JsonResponse(data)
 
-def movie_detail(request,pk):
-    movie = Movie.objects.get(pk=pk)
-    data = {
-        'name':movie.name,
-        'decsr' : movie.description,
-        'active':movie.active,
-    }
+# def movie_detail(request,pk):
+#     movie = Movie.objects.get(pk=pk)
+#     data = {
+#         'name':movie.name,
+#         'decsr' : movie.description,
+#         'active':movie.active,
+#     }
     
-    return JsonResponse(data)
+#     return JsonResponse(data)
