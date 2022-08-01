@@ -3,6 +3,10 @@ from rest_framework.response import Response
 from rest_framework import status
 from watchlist_app.models import Movie
 from watchlist_app.api.serializers import MovieSerializer
+from django.http import JsonResponse
+
+def homepage_(request):
+    return JsonResponse("Hello I am Bwhiz's API",safe=False)
 
 # @api_view(['GET','POST'])
 # def movie_list(request):
@@ -46,9 +50,13 @@ from watchlist_app.api.serializers import MovieSerializer
 #         return Response(status = status.HTTP_204_NO_CONTENT)
         
 #----------------------------------------------------------------------------------------------------
+
+
+
 # Utilizing Class based view now;
 
 from rest_framework.views import APIView
+
 
 class MovieListAV(APIView):
     
