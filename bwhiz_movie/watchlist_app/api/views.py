@@ -164,20 +164,43 @@ class WatchDetailAV(APIView):
 
 
 # creating view for StreamPlatform;
-#using vuewsets and Routers;
 
-class StreamPlatformVS(viewsets.ViewSet):
+#using viewsets.ModelViewSet
+
+class StreamPlatformVS(viewsets.ModelViewSet):
+    queryset = StreamPlatform.objects.all()
+    serializer_class = StreamPlatformSerializer
+
+
+
+#using viewsets.ViewSet and Routers;
+
+# class StreamPlatformVS(viewsets.ViewSet):
     
-    def list(self, request):
-        queryset = StreamPlatform.objects.all()
-        serializer = StreamPlatformSerializer(queryset, many=True)
-        return Response(serializer.data)
+#     def list(self, request):
+#         queryset = StreamPlatform.objects.all()
+#         serializer = StreamPlatformSerializer(queryset, many=True)
+#         return Response(serializer.data)
     
-    def retrieve(self, request, pk=None):
-        queryset = StreamPlatform.objects.all()
-        watchlist = get_object_or_404(queryset, pk=pk)
-        serializer = StreamPlatformSerializer(watchlist)
-        return Response(serializer.data)
+#     def retrieve(self, request, pk=None):
+#         queryset = StreamPlatform.objects.all()
+#         watchlist = get_object_or_404(queryset, pk=pk)
+#         serializer = StreamPlatformSerializer(watchlist)
+#         return Response(serializer.data)
+    
+#     def create(self, request):
+#         serializer = StreamPlatformSerializer(data=request.data)
+#         if serializer.is_valid():
+#             serializer.save()
+#             return Response(serializer.data)
+#         return Response(serializer.errors)
+    
+#     def destroy(self, request):
+#         stream = StreamPlatform.objects.get(pk=pk)
+#         stream.delete()
+#         return Response(status = status.HTTP_204_NO_CONTENT)
+        
+        
 
 
 #using APIView
