@@ -1,8 +1,10 @@
+
+from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 # from rest_framework.decorators import api_view
 from rest_framework import status
 from django.http import JsonResponse
-from rest_framework import generics  #, mixins
+from rest_framework import generics , viewsets #, mixins
 
 from watchlist_app.models import WatchList, StreamPlatform, Review
 from watchlist_app.api.serializers import ReviewSerializer, WatchListSerializer, StreamPlatformSerializer
@@ -56,7 +58,17 @@ def homepage_(request):
 
 
 # Using Concrete generic view classes;
-class ReviewList(generics.ListCreateAPIView):
+
+class ReviewCreate(generics.CreateAPIView):
+    serializer_class = ReviewSerializer
+    
+    def perform_create(self, serializer):
+        pk = self.kwargs.get('pk')
+        movie = WatchList.objects.get(pk=pk)
+        
+        serializer.save(watchlist=movie)
+
+class ReviewList(generics.ListAPIView):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
     
@@ -148,9 +160,27 @@ class WatchDetailAV(APIView):
         return Response(status = status.HTTP_204_NO_CONTENT)
     
     
-    
-# creating view for StreamPlatform;
 
+
+
+# creating view for StreamPlatform;
+#using vuewsets and Routers;
+
+class StreamPlatformVS(viewsets.ViewSet):
+    
+    def list(self, request):
+        queryset = StreamPlatform.objects.all()
+        serializer = StreamPlatformSerializer(queryset, many=True)
+        return Response(serializer.data)
+    
+    def retrieve(self, request, pk=None):
+        queryset = StreamPlatform.objects.all()
+        watchlist = get_object_or_404(queryset, pk=pk)
+        serializer = StreamPlatformSerializer(watchlist)
+        return Response(serializer.data)
+
+
+#using APIView
 class StreamListAV(APIView):
     
     def get(self, request):
