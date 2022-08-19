@@ -3,6 +3,7 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 # from rest_framework.decorators import api_view
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import ValidationError
 from django.http import JsonResponse
 from rest_framework import generics , viewsets #, mixins
@@ -82,6 +83,7 @@ class ReviewCreate(generics.CreateAPIView):
 class ReviewList(generics.ListAPIView):
     # queryset = Review.objects.all()
     serializer_class = ReviewSerializer
+    permission_classes = [IsAuthenticated]
     
     def get_queryset(self):
         pk = self.kwargs['pk']
