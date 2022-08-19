@@ -10,6 +10,7 @@ router.register('stream', StreamPlatformVS, basename = 'streamplatform' )
 
 
 urlpatterns = [
+    
     path('',homepage_, name='homepage'),
     path('list/', WatchListAV.as_view(), name='movie-list'),
     path('<int:pk>', WatchDetailAV.as_view(), name = 'movie-detail'),

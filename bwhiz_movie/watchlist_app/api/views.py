@@ -4,6 +4,7 @@ from rest_framework.response import Response
 # from rest_framework.decorators import api_view
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
+from watchlist_app.api.permissions import AdminOrReadOnly,ReviewUserOrReadOnly
 from rest_framework.exceptions import ValidationError
 from django.http import JsonResponse
 from rest_framework import generics , viewsets #, mixins
@@ -94,7 +95,7 @@ class ReviewList(generics.ListAPIView):
 class ReviewDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Review.objects.all()
     serializer_class = ReviewSerializer
-
+    permission_classes = [ReviewUserOrReadOnly]
 
 
 # using Generic views(Mixins)
